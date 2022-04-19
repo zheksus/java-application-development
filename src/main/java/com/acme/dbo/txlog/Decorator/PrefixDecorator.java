@@ -2,10 +2,10 @@ package com.acme.dbo.txlog.Decorator;
 
 public class PrefixDecorator {
 
-    public static final String MESSAGE_PREFIX = "primitive: ";
-    public static final String CHAR_MESSAGE_PREFIX = "char: ";
-    public static final String STRING_MESSAGE_PREFIX = "string: ";
-    public static final String OBJECT_MESSAGE_PREFIX = "reference: ";
+    private static final String MESSAGE_PREFIX = "primitive: ";
+    private static final String CHAR_MESSAGE_PREFIX = "char: ";
+    private static final String STRING_MESSAGE_PREFIX = "string: ";
+    private static final String OBJECT_MESSAGE_PREFIX = "reference: ";
 
     public static String decorate(int message) {
         return MESSAGE_PREFIX + message;
