@@ -12,11 +12,10 @@ public class Facade {
 
 
     public static void log(int message) {
-        if (stringAccumulationMode) {
-            flush();
-        }
+        flushString();
+
         if (message > Integer.MAX_VALUE - integerAccumulator) {
-            printDecoratedIntegerAndDisableAccumulator();
+            flushInteger();
             print(decorate(message));
         } else {
             integerAccumulator += message;
@@ -25,14 +24,8 @@ public class Facade {
     }
 
     public static void log(byte message) {
-        if (stringAccumulationMode) {
-            flush();
-        }
-        if (integerAccumulationMode) {
-            printDecoratedIntegerAndDisableAccumulator();
-        }
+        flush();
         print(decorate(message));
-//        print(decorate(message));
     }
 
     public static void log(char message) {
@@ -40,9 +33,7 @@ public class Facade {
     }
 
     public static void log(String message) {
-        if (integerAccumulationMode) {
-            flush();
-        }
+        flushInteger();
 
         if (stringAccumulationMode == false) {
             stringAccumulator = message;
@@ -56,12 +47,10 @@ public class Facade {
                     flush();
                     stringCounter = 1;
                     stringAccumulator = message;
-                    stringAccumulationMode=true;
+                    stringAccumulationMode = true;
                 }
             }
         }
-
-//        print(decorate(message));
     }
 
     public static void log(boolean message) {
@@ -73,11 +62,11 @@ public class Facade {
     }
 
     public static void flush() {
-        printDecoratedIntegerAndDisableAccumulator();
-        printDecoratedStringAndDisableAccumulator();
+        flushInteger();
+        flushString();
     }
 
-    private static void printDecoratedIntegerAndDisableAccumulator() {
+    private static void flushInteger() {
         if (integerAccumulationMode) {
             print(decorate(integerAccumulator));
             integerAccumulationMode = false;
@@ -85,7 +74,7 @@ public class Facade {
         }
     }
 
-    private static void printDecoratedStringAndDisableAccumulator() {
+    private static void flushString() {
         if (stringAccumulationMode) {
             if (stringCounter > 1) {
                 print(decorate(stringAccumulator + " (x" + stringCounter + ")"));
@@ -94,8 +83,7 @@ public class Facade {
             }
             stringAccumulationMode = false;
             stringAccumulator = null;
-            stringCounter=0;
+            stringCounter = 0;
         }
     }
-
 }
