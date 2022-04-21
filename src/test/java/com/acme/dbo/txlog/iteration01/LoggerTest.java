@@ -77,6 +77,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         //region when
         Facade.log("test string 1");
         Facade.log("other str");
+        Facade.flush();
         //endregion
 
         //region then
