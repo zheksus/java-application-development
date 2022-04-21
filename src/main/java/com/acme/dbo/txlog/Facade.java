@@ -35,19 +35,15 @@ public class Facade {
     public static void log(String message) {
         flushInteger();
 
-        if (stringAccumulationMode == false) {
-            stringAccumulator = message;
-            stringAccumulationMode = true;
-            stringCounter++;
+        if (!stringAccumulationMode) {
+            startStringAccumulation(message);
         } else {
             if (message != null) {
                 if (message.equals(stringAccumulator)) {
                     stringCounter++;
                 } else {
                     flush();
-                    stringCounter = 1;
-                    stringAccumulator = message;
-                    stringAccumulationMode = true;
+                    startStringAccumulation(message);
                 }
             }
         }
@@ -64,6 +60,12 @@ public class Facade {
     public static void flush() {
         flushInteger();
         flushString();
+    }
+
+    private static void startStringAccumulation(String message) {
+        stringCounter = 1;
+        stringAccumulator = message;
+        stringAccumulationMode = true;
     }
 
     private static void flushInteger() {
