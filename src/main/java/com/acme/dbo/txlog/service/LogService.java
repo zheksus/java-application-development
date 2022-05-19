@@ -24,14 +24,30 @@ public class LogService {
         integerAccumulator += message.getValue();
     }
 
-    private void flushString() {
-        if (stringCounter > 1) {
-            print(decorate(stringAccumulator + " (x" + stringCounter + ")"));
-        } else {
-            print(decorate(stringAccumulator));
+    public void log(StringMessage message) {
+        if (message == null)
+            return;
+
+        if (mode == INTEGER_ACCUMULATION) {
+            flushInteger();
         }
-        stringAccumulator = null;
-        stringCounter = 0;
+
+        String strAccumulated = message.getValue();
+
+        if (mode != STRING_ACCUMULATION) {
+            startStringAccumulation(strAccumulated);
+        } else {
+            processStringAccumulation(strAccumulated);
+        }
+    }
+
+    private void processStringAccumulation(String message) {
+        if (message.equals(stringAccumulator)) {
+            stringCounter++;
+        } else {
+            flushString();
+            startStringAccumulation(message);
+        }
     }
 
     public void flush() {
@@ -40,6 +56,16 @@ public class LogService {
         } else if (mode == STRING_ACCUMULATION) {
             flushString();
         }
+    }
+
+    private void flushString() {
+        if (stringCounter > 1) {
+            print(decorate(stringAccumulator + " (x" + stringCounter + ")"));
+        } else {
+            print(decorate(stringAccumulator));
+        }
+        stringAccumulator = null;
+        stringCounter = 0;
     }
 
     private void startStringAccumulation(String message) {
@@ -53,23 +79,4 @@ public class LogService {
         integerAccumulator = 0;
     }
 
-
-    public void log(StringMessage message) {
-        if (message == null)
-            return;
-
-        if (mode == INTEGER_ACCUMULATION) {
-            flushInteger();
-            startStringAccumulation(message.getValue());
-        } else if (mode == NONE) {
-            startStringAccumulation(message.getValue());
-        } else {
-            if (message.getValue().equals(stringAccumulator)) {
-                stringCounter++;
-            } else {
-                flush();
-                startStringAccumulation(message.getValue());
-            }
-        }
-    }
 }
