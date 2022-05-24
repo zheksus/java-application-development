@@ -13,7 +13,12 @@ public class LogService {
     private String stringAccumulator = "";
     private int stringCounter = 0;
 
+    private IntMessage intMessage;
+    private StringMessage stringMessage;
+
     public LogService() {
+        intMessage = new IntMessage();
+        stringMessage = new StringMessage();
     }
 
     public void log(IntMessage message) {

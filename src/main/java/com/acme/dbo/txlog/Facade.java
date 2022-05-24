@@ -15,26 +15,9 @@ public class Facade {
         logger.log(new IntMessage(message));
     }
 
-//    public static void log(byte message) {
-//        flush();
-//        print(decorate(message));
-//    }
-
-//    public static void log(char message) {
-//        print(decorate(message));
-//    }
-
     public static void log(String message) {
         logger.log(new StringMessage(message));
     }
-
-//    public static void log(boolean message) {
-//        print(decorate(message));
-//    }
-
-//    public static void log(Object message) {
-//        print(decorate(message));
-//    }
 
     public static void flush() {
         logger.flush();
