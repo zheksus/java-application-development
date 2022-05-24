@@ -1,13 +1,30 @@
 package com.acme.dbo.txlog.message;
 
-public class IntMessage {
-    private int message;
+public class IntMessage implements AbstractMessage {
+    /// PREFIX - inheritance
+
+    private final int accumulatedInt;
 
     public IntMessage(int message) {
-        this.message=message;
+        this.accumulatedInt = message;
     }
 
-    public int getValue() {
-        return message;
+    @Override
+    public boolean isSame(AbstractMessage message) {
+        if (message instanceof IntMessage)
+            return true;
+        else
+            return false;
     }
+
+    @Override
+    public IntMessage accumulate(AbstractMessage message) {
+        return new IntMessage(accumulatedInt + ((IntMessage)message).accumulatedInt);
+    }
+
+    @Override
+    public String decorate() {
+        return "primitive: " + accumulatedInt;
+    }
+
 }
