@@ -1,16 +1,18 @@
 package com.acme.dbo.txlog.message;
 
-public class StringMessage implements AbstractMessage {
+public class StringMessage extends PrefixDecoratedMessage {
 
     private final String data;
     private final int counter;
 
     public StringMessage(String message) {
+        super("string: ");
         this.data = message;
         this.counter = 1;
     }
 
     public StringMessage(String message, int counter) {
+        super("string: ");
         this.data = message;
         this.counter = counter;
     }
@@ -32,9 +34,9 @@ public class StringMessage implements AbstractMessage {
     @Override
     public String decorate() {
         if (counter > 1)
-            return "string: " + data + " (x" + counter + ")";
+            return decorate(data + " (x" + counter + ")");
         else
-            return "string: " + data;
+            return decorate(data);
 
     }
 }

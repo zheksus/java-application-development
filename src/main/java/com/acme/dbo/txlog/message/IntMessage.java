@@ -1,13 +1,11 @@
 package com.acme.dbo.txlog.message;
 
-public class IntMessage implements AbstractMessage {
-/* TODO: Implement Prefix through inheritance
-
- */
+public class IntMessage extends PrefixDecoratedMessage {
 
     private final int accumulatedInt;
 
     public IntMessage(int message) {
+        super("primitive: ");
         this.accumulatedInt = message;
     }
 
@@ -26,7 +24,7 @@ public class IntMessage implements AbstractMessage {
 
     @Override
     public String decorate() {
-        return "primitive: " + accumulatedInt;
+        return decorate(String.valueOf(accumulatedInt));
     }
 
 }
