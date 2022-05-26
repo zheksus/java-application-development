@@ -1,7 +1,9 @@
 package com.acme.dbo.txlog.message;
 
 public class IntMessage implements AbstractMessage {
-    /// PREFIX - inheritance
+/* TODO: Implement Prefix through inheritance
+
+ */
 
     private final int accumulatedInt;
 

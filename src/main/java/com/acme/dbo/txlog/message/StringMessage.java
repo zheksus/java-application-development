@@ -1,13 +1,8 @@
 package com.acme.dbo.txlog.message;
 
-import jdk.nashorn.internal.ir.annotations.Immutable;
-
 public class StringMessage implements AbstractMessage {
-    ///// Try to implement immutable!!!!!
-    @Immutable
-    private final String data;
 
-    @Immutable
+    private final String data;
     private final int counter;
 
     public StringMessage(String message) {
