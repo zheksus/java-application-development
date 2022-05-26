@@ -2,10 +2,11 @@ package com.acme.dbo.txlog;
 
 import com.acme.dbo.txlog.message.IntMessage;
 import com.acme.dbo.txlog.message.StringMessage;
+import com.acme.dbo.txlog.saver.ConsoleSaver;
 import com.acme.dbo.txlog.service.LogService;
 
 public class Facade {
-    private static final LogService logger = new LogService();
+    private static final LogService logger = new LogService(new ConsoleSaver());
 
     public static void log(int message) {
         logger.log(new IntMessage(message));

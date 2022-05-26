@@ -2,12 +2,14 @@ package com.acme.dbo.txlog.service;
 
 import com.acme.dbo.txlog.message.AbstractMessage;
 import com.acme.dbo.txlog.message.NullMessage;
-import static com.acme.dbo.txlog.printer.ConsolePrinter.print;
+import com.acme.dbo.txlog.saver.AbstractSaver;
 
 public class LogService {
     private AbstractMessage currentAccumulatedMessage = new NullMessage();
+    private AbstractSaver saver;
 
-    public LogService() {
+    public LogService(AbstractSaver saver) {
+        this.saver=saver;
     }
 
     public void log(AbstractMessage message) {
@@ -20,7 +22,7 @@ public class LogService {
     }
 
     public void flush() {
-        print(currentAccumulatedMessage.decorate());
+        saver.save(currentAccumulatedMessage.decorate());
         currentAccumulatedMessage = new NullMessage();
     }
 }
