@@ -6,7 +6,7 @@ public class StringMessage extends PrefixDecoratedMessage {
     private final int counter;
 
     public StringMessage(String message) {
-        this(message,1);
+        this(message, 1);
     }
 
     public StringMessage(String message, int counter) {
@@ -33,7 +33,7 @@ public class StringMessage extends PrefixDecoratedMessage {
     public String decorate() {
         String str = data;
         if (counter > 1)
-            str +=  " (x" + counter + ")";
+            str += " (x" + counter + ")";
         return decorate(str);
     }
 }
