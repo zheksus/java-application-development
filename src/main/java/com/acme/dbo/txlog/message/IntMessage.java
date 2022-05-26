@@ -10,15 +10,12 @@ public class IntMessage extends PrefixDecoratedMessage {
     }
 
     @Override
-    public boolean isSame(AbstractMessage message) {
-        if (message instanceof IntMessage)
-            return true;
-        else
-            return false;
+    public boolean isSame(Message message) {
+        return (message instanceof IntMessage);
     }
 
     @Override
-    public IntMessage accumulate(AbstractMessage message) {
+    public IntMessage accumulate(Message message) {
         return new IntMessage(accumulatedInt + ((IntMessage)message).accumulatedInt);
     }
 

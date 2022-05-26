@@ -1,18 +1,18 @@
 package com.acme.dbo.txlog.service;
 
-import com.acme.dbo.txlog.message.AbstractMessage;
-import com.acme.dbo.txlog.message.NullMessage;
+import com.acme.dbo.txlog.message.Message;
+import com.acme.dbo.txlog.message.DefaultMessage;
 import com.acme.dbo.txlog.saver.AbstractSaver;
 
 public class LogService {
-    private AbstractMessage currentAccumulatedMessage = new NullMessage();
+    private Message currentAccumulatedMessage = new DefaultMessage();
     private AbstractSaver saver;
 
     public LogService(AbstractSaver saver) {
         this.saver=saver;
     }
 
-    public void log(AbstractMessage message) {
+    public void log(Message message) {
         if (currentAccumulatedMessage.isSame(message)) {
             currentAccumulatedMessage = currentAccumulatedMessage.accumulate(message);
         } else {
@@ -23,6 +23,6 @@ public class LogService {
 
     public void flush() {
         saver.save(currentAccumulatedMessage.decorate());
-        currentAccumulatedMessage = new NullMessage();
+        currentAccumulatedMessage = new DefaultMessage();
     }
 }

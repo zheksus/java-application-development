@@ -16,24 +16,22 @@ public class StringMessage extends PrefixDecoratedMessage {
     }
 
     @Override
-    public AbstractMessage accumulate(AbstractMessage message) {
+    public Message accumulate(Message message) {
         return new StringMessage(data, counter + 1);
     }
 
     @Override
-    public boolean isSame(AbstractMessage message) {
-        if ((message instanceof StringMessage) && (((StringMessage) message).data.equals(data))) {
-            return true;
-        } else {
-            return false;
-        }
+    public boolean isSame(Message message) {
+        return ((message instanceof StringMessage) && (((StringMessage) message).data.equals(data)));
     }
 
+    //stringformat
     @Override
     public String decorate() {
         String str = data;
-        if (counter > 1)
+        if (counter > 1) {
             str += " (x" + counter + ")";
+        }
         return decorate(str);
     }
 }
