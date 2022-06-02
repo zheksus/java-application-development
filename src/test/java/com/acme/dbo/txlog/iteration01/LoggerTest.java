@@ -2,6 +2,7 @@ package com.acme.dbo.txlog.iteration01;
 
 import com.acme.dbo.txlog.Facade;
 import com.acme.dbo.txlog.SysoutCaptureAndAssertionAbility;
+import com.acme.dbo.txlog.service.LogOperationException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,8 +24,9 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     //endregion
 
     @Test
-    public void shouldLogInteger() throws IOException {
+    public void shouldLogInteger() throws IOException, LogOperationException {
         //region when
+        Facade.flush();
         Facade.log(1);
         Facade.flush();
         Facade.log(0);
@@ -38,25 +40,26 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         assertSysoutEquals("primitive: 1\nprimitive: 0\nprimitive: -1\n");
         //endregion
     }
-/*
-    @Test
-    public void shouldLogByte() throws IOException {
-        //region when
-        Facade.log((byte)1);
-        Facade.flush();
-        Facade.log((byte)0);
-        Facade.flush();
-        Facade.log((byte)-1);
-        //endregion
 
-        //region then
-        assertSysoutContains("primitive: ");
-        assertSysoutContains("1");
-        assertSysoutContains("0");
-        assertSysoutContains("-1");
-        //endregion
-    }
-*/
+    /*
+        @Test
+        public void shouldLogByte() throws IOException {
+            //region when
+            Facade.log((byte)1);
+            Facade.flush();
+            Facade.log((byte)0);
+            Facade.flush();
+            Facade.log((byte)-1);
+            //endregion
+
+            //region then
+            assertSysoutContains("primitive: ");
+            assertSysoutContains("1");
+            assertSysoutContains("0");
+            assertSysoutContains("-1");
+            //endregion
+        }
+    */
     /*
 
     @Test
@@ -74,7 +77,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     }
 */
     @Test
-    public void shouldLogString() throws IOException {
+    public void shouldLogString() throws IOException, LogOperationException {
         //region when
         Facade.log("test string 1");
         Facade.log("other str");
