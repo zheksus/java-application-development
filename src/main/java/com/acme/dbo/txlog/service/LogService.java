@@ -13,7 +13,7 @@ public class LogService {
         this.saver=saver;
     }
 
-    public void log(Message message) throws LogOperationException {
+    public void log(Message message) throws LogServiceException {
         if (currentAccumulatedMessage.isSame(message)) {
             currentAccumulatedMessage = currentAccumulatedMessage.accumulate(message);
         } else {
@@ -22,14 +22,14 @@ public class LogService {
         }
     }
 
-    public void flush() throws LogOperationException {
+    public void flush() throws LogServiceException {
         try {
 //            saver.save(currentAccumulatedMessage.decorate());
             saver.save(null);
         }
         catch (SaverMessageIsNullException e) {
             e.printStackTrace();
-            throw new LogOperationException(e.getMessage());
+            throw new LogServiceException(e.getMessage());
         }
         currentAccumulatedMessage = new DefaultMessage();
     }
