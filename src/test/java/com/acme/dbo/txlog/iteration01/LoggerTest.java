@@ -26,7 +26,6 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogInteger() throws IOException, LogServiceException {
         //region when
-        Facade.flush();
         Facade.log(1);
         Facade.flush();
         Facade.log(0);

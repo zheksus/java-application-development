@@ -24,8 +24,7 @@ public class LogService {
 
     public void flush() throws LogServiceException {
         try {
-//            saver.save(currentAccumulatedMessage.decorate());
-            saver.save(null);
+            saver.save(currentAccumulatedMessage.decorate());
         }
         catch (SaverMessageIsNullException e) {
             e.printStackTrace();
